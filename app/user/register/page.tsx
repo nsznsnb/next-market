@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { json } from "stream/consumers";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -10,18 +9,21 @@ export default function Register() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/api/user/register", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          password: password,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/api/user/register`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            password: password,
+          }),
+        }
+      );
       const jsonData = await response.json();
       alert(jsonData.message);
     } catch {

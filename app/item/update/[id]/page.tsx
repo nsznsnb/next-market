@@ -19,7 +19,7 @@ const UpdateItem = (context: { params: { id: string } }) => {
   useEffect(() => {
     const getSingleItem = async (id: string) => {
       const response = await fetch(
-        `http://localhost:3000/api/item/readsingle/${id}`,
+        `${process.env.NEXT_PUBLIC_URL}/api/item/readsingle/${id}`,
         { cache: "no-store" }
       );
       const jsonData = await response.json();
@@ -42,7 +42,7 @@ const UpdateItem = (context: { params: { id: string } }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:3000/api/item/update/${context.params.id}`,
+        `${process.env.NEXT_PUBLIC_URL}/api/item/update/${context.params.id}`,
         {
           method: "PUT",
           headers: {
