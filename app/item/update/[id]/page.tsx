@@ -19,7 +19,7 @@ const UpdateItem = (context: { params: { id: string } }) => {
   useEffect(() => {
     const getSingleItem = async (id: string) => {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/api/item/readsingle/${id}`,
+        `${process.env.NEXT_PUBLIC_URL}/api/item/readSingle/${id}`,
         { cache: "no-store" }
       );
       const jsonData = await response.json();
