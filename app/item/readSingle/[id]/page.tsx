@@ -5,7 +5,8 @@ import React from "react";
 
 const getSingleItem = async (id: string): Promise<Item> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_URL}/api/item/readsingle/${id}`
+    `${process.env.NEXT_PUBLIC_URL}/api/item/readsingle/${id}`,
+    { cache: "no-store" }
   );
   console.log(process.env.NEXT_PUBLIC_URL);
   const jsonData = await response.json();
