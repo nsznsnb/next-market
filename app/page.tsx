@@ -37,5 +37,3 @@ const ReadAllItems = async () => {
 };
 
 export default ReadAllItems;
-
-export const revalidate = 0;
