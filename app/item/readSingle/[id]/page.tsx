@@ -10,6 +10,7 @@ const getSingleItem = async (id: string): Promise<Item> => {
   );
   console.log(process.env.NEXT_PUBLIC_URL);
   const jsonData = await response.json();
+  console.log(JSON.stringify(jsonData));
   return jsonData.singleItem;
 };
 
