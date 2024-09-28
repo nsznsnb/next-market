@@ -19,7 +19,7 @@ const ReadAllItems = async () => {
   return (
     <div className="grid-container-in">
       {allItems.map((item) => (
-        <Link href={`/item/readSingle/${item.id}`} key={item.id}>
+        <Link href={`/item/readsingle/${item.id}`} key={item.id}>
           <Image
             src={item.image}
             width={750}
