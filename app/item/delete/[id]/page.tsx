@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import React, { FormEvent, useEffect, useState } from "react";
 import useAuth from "@/app/lib/useAuth";
 
-type DeleteFormState = Omit<Item, "id" | "email">;
+type DeleteFormState = Omit<Item, "id">;
 
 const DeleteItem = (context: { params: { id: string } }) => {
   const [inputs, setInputs] = useState<DeleteFormState>({
@@ -13,6 +13,7 @@ const DeleteItem = (context: { params: { id: string } }) => {
     price: "",
     image: "",
     description: "",
+    email: "",
   });
   const router = useRouter();
   const loginUserEmail = useAuth();
@@ -54,7 +55,7 @@ const DeleteItem = (context: { params: { id: string } }) => {
     }
   };
 
-  if (loginUserEmail) {
+  if (loginUserEmail === inputs.email) {
     return (
       <div>
         <h1 className="page-title">アイテム削除</h1>

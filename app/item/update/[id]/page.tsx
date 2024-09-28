@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import useAuth from "@/app/lib/useAuth";
 
-type UpdateFormState = Omit<Item, "id" | "email">;
+type UpdateFormState = Omit<Item, "id">;
 
 const UpdateItem = (context: { params: { id: string } }) => {
   const [inputs, setInputs] = useState<UpdateFormState>({
@@ -12,6 +12,7 @@ const UpdateItem = (context: { params: { id: string } }) => {
     price: "",
     image: "",
     description: "",
+    email: "",
   });
   const router = useRouter();
   const loginUserEmail = useAuth();
@@ -62,7 +63,7 @@ const UpdateItem = (context: { params: { id: string } }) => {
     }
   };
 
-  if (loginUserEmail) {
+  if (loginUserEmail === inputs.email) {
     return (
       <div>
         <h1>アイテム編集</h1>
