@@ -1,10 +1,11 @@
 "use client";
+import ImgInput from "@/app/components/imgInput";
 import useAuth from "@/app/lib/useAuth";
 import { Item } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 
-type CreateFormState = Omit<Item, "id" | "email">;
+export type CreateFormState = Omit<Item, "id" | "email">;
 
 const CreateItem = () => {
   const [inputs, setInputs] = useState<CreateFormState>({
@@ -15,7 +16,6 @@ const CreateItem = () => {
   });
   const router = useRouter();
   const loginUserEmail = useAuth();
-  console.log(loginUserEmail);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -53,6 +53,7 @@ const CreateItem = () => {
     return (
       <div>
         <h1 className="page-title">アイテム作成</h1>
+        <ImgInput setImage={setInputs} createFormState={inputs} />
         <form onSubmit={handleSubmit}>
           <input
             value={inputs.title}
