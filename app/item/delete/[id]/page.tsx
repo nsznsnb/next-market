@@ -15,6 +15,7 @@ const DeleteItem = (context: { params: { id: string } }) => {
     description: "",
     email: "",
   });
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const loginUserEmail = useAuth();
 
@@ -27,6 +28,7 @@ const DeleteItem = (context: { params: { id: string } }) => {
       const jsonData = await response.json();
       const singleItem = jsonData.singleItem;
       setInputs(singleItem);
+      setLoading(true);
     };
     getSingleItem(context.params.id);
   }, [context]);
@@ -55,27 +57,31 @@ const DeleteItem = (context: { params: { id: string } }) => {
     }
   };
 
-  if (loginUserEmail === inputs.email) {
-    return (
-      <div>
-        <h1 className="page-title">アイテム削除</h1>
-        <form onSubmit={handleSubmit}>
-          <h2>{inputs.title}</h2>
-          <Image
-            src={inputs.image}
-            width={750}
-            height={500}
-            alt="item-image"
-            priority
-          />
-          <h3>\{inputs.price}</h3>
-          <p>{inputs.description}</p>
-          <button>削除</button>
-        </form>
-      </div>
-    );
+  if (loading) {
+    if (loginUserEmail === inputs.email) {
+      return (
+        <div>
+          <h1 className="page-title">アイテム削除</h1>
+          <form onSubmit={handleSubmit}>
+            <h2>{inputs.title}</h2>
+            <Image
+              src={inputs.image}
+              width={750}
+              height={500}
+              alt="item-image"
+              priority
+            />
+            <h3>\{inputs.price}</h3>
+            <p>{inputs.description}</p>
+            <button>削除</button>
+          </form>
+        </div>
+      );
+    } else {
+      return <h1>権限がありません。</h1>;
+    }
   } else {
-    return <h1>権限がありません。</h1>;
+    return <h1>ローディング中...</h1>;
   }
 };
 

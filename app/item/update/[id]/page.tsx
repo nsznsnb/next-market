@@ -14,6 +14,7 @@ const UpdateItem = (context: { params: { id: string } }) => {
     description: "",
     email: "",
   });
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const loginUserEmail = useAuth();
 
@@ -26,6 +27,7 @@ const UpdateItem = (context: { params: { id: string } }) => {
       const jsonData = await response.json();
       const singleItem = jsonData.singleItem;
       setInputs(singleItem);
+      setLoading(true);
     };
     getSingleItem(context.params.id);
   }, [context]);
@@ -63,49 +65,53 @@ const UpdateItem = (context: { params: { id: string } }) => {
     }
   };
 
-  if (loginUserEmail === inputs.email) {
-    return (
-      <div>
-        <h1>アイテム編集</h1>
-        <form onSubmit={handleSubmit}>
-          <input
-            value={inputs.title}
-            onChange={handleChange}
-            type="text"
-            name="title"
-            placeholder="アイテム名"
-            required
-          />
-          <input
-            value={inputs.price}
-            onChange={handleChange}
-            type="text"
-            name="price"
-            placeholder="価格"
-            required
-          />
-          <input
-            value={inputs.image}
-            onChange={handleChange}
-            type="text"
-            name="image"
-            placeholder="画像"
-            required
-          />
-          <textarea
-            value={inputs.description}
-            onChange={handleChange}
-            name="description"
-            rows={15}
-            placeholder="商品説明"
-            required
-          />
-          <button>編集</button>
-        </form>
-      </div>
-    );
+  if (loading) {
+    if (loginUserEmail === inputs.email) {
+      return (
+        <div>
+          <h1>アイテム編集</h1>
+          <form onSubmit={handleSubmit}>
+            <input
+              value={inputs.title}
+              onChange={handleChange}
+              type="text"
+              name="title"
+              placeholder="アイテム名"
+              required
+            />
+            <input
+              value={inputs.price}
+              onChange={handleChange}
+              type="text"
+              name="price"
+              placeholder="価格"
+              required
+            />
+            <input
+              value={inputs.image}
+              onChange={handleChange}
+              type="text"
+              name="image"
+              placeholder="画像"
+              required
+            />
+            <textarea
+              value={inputs.description}
+              onChange={handleChange}
+              name="description"
+              rows={15}
+              placeholder="商品説明"
+              required
+            />
+            <button>編集</button>
+          </form>
+        </div>
+      );
+    } else {
+      return <h1>権限がありません。</h1>;
+    }
   } else {
-    return <h1>権限がありません。</h1>;
+    return <h1>ローディング中...</h1>;
   }
 };
 
